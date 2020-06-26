@@ -1,0 +1,38 @@
+tests:
+    'Symfony debug mode should be disabled in production':
+        path:
+            - '/.*'
+        methods:
+            - ANY
+        command: '.*'
+        assertions:
+            - { label: null, expression: 'metrics.symfony.kernel.debug.count == 0' }
+        exclude: {  }
+        
+    'Symfony config resource tracking should be disabled in production':
+        path:
+            - '/.*'
+        methods:
+            - ANY
+        assertions:
+            - { label: null, expression: 'metrics.symfony.config_check.count == 0' }
+        exclude: {  }
+
+    'Doctrine annotations should be cached in production':
+        path:
+            - '/.*'
+        methods:
+            - ANY
+        assertions:
+            - { label: null, expression: 'metrics.doctrine.annotations.parsed.count + metrics.doctrine.annotations.read.count + metrics.doctrine.entities.metadata.count == 0' }
+        exclude: {  }
+
+    'The Composer autoloader class map should be dumped in production':
+        path:
+            - '/.*'
+        methods:
+            - ANY
+        command: '.*'
+        assertions:
+            - { label: null, expression: 'metrics.composer.autoload.find_file.count <= 50' }
+        exclude: {  }
