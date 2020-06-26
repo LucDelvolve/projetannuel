@@ -1,0 +1,92 @@
+{% extends 'presta/base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<style>
+        body {
+            justify-content: center;
+            height: 100vh;
+            background-image:
+            url('{{ asset('build/images/nature1.jpg') }}');
+        }
+
+        .card {
+            margin-top: 10%;
+        }
+    </style>
+
+<div class="container">
+    <h1 class="my-5">Inscrivez vous sur notre site !</h1>
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-light mb2">
+                <h2 class="alert-heading">Informations générales</h2>
+                <hr>
+                <div class="md-form ">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="md-form ">
+                    {{ form_row(form.lastName) }}
+                </div>
+                <div class="md-form ">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="md-form ">
+                    {{ form_row(form.picture) }}
+                </div>
+            </div>
+            
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Mot de passe</h2>
+                <hr>
+                <div class="md-form ">
+                    {{ form_label(form.hash) }}
+
+                    {{ form_widget(form.hash,{'id': 'password'}) }}
+                </div>
+                    {# diff#}
+                <div class="md-form ">
+                    {{ form_label(form.passwordConfirm) }}
+
+                    {{ form_widget(form.passwordConfirm,{'id': 'password-custom'}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Détails</h2>
+                <hr>
+                <div class="md-form ">
+                    {{ form_row(form.introduction) }}
+                </div>
+                <div class="md-form ">
+                    <div class="md-form amber-textarea active-amber-textarea">
+                        <i class="fas fa-angle-double-right prefix"></i>
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description, {'attr':{'class': 'md-textarea form-control','rows':3}}, {'id': 'form22'}) }}</div>
+                    </div>
+                <hr>
+                <p>Vous y êtes presque, confirmez votre inscription et rejoignez nous !</p>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check"></i>
+                    Confirmez l'inscription
+                </button>
+            </div>
+        </div>
+    </div>
+    {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+    
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('build/js/password.js') }}"></script>
+
+{% endblock %}

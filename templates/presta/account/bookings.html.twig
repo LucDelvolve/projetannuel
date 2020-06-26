@@ -1,0 +1,44 @@
+{% extends 'presta/base.html.twig' %}
+
+{% block title %}Vos réservations passées et à venir{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 class="my-5 text-center">Mes réservations</h1>
+    <div class="alert alert-info mt-3 text-center">
+        <p>Retrouvez ci-dessous toutes vos réservations passées et à venir</p>
+    </div>
+
+    {% for ad in app.user.ads %}
+        {% for booking in ad.bookings %}
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <img src="{{ad.coverImage}}" alt="Photo de la prestation {{ad.title}}" class="img-fluid">
+
+                <div class="mt-3">
+                    {% if ad.comments|length > 0 %}
+                    {% include 'partials/rating.html.twig' with {'rating': ad.avgRatings} %} <span style="font-size: 16px; line-height: 21px; color: #8c8c8c">{{ ad.comments|length }}</span>
+                    {% else %}
+                        <small>Pas encore noté</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h4>La prestation <a href="{{path('presta_ads_show', {'slug': ad.slug})}}">{{ad.title}}</a></h4>
+                <p>
+                    Réservation <strong>n°{{booking.id}}</strong><br>
+                    Réservation faite par <strong>{{booking.booker.fullName}}</strong><br>
+                    Statut de la resérvation <strong>{{booking.status}}</strong><br>
+                    Du {{booking.startDate|date('d/m/Y')}} au {{booking.endDate|date('d/m/Y')}} ({{booking.amount | number_format(2, ',', ' ')}} &euro;)
+                </p>
+                <a href="{{ path('presta_booking_show', {'id': booking.id}) }}" class="btn btn-info">Plus d'informations</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+    {% endfor %}
+</div>
+
+{% endblock %}

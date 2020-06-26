@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des catégories!{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <h1 class="my-5 text-center">Gestion des catégories</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th class="text-center">Prestations</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for category in pagination.data %}
+            <tr>
+                <td>{{category.title}}</td>
+                <td>
+                    {{category.description | raw}}
+                </td>
+                <td class="text-center">
+                    <span class="badge badge-dark">{{category.ads | length}}</span>
+                </td>
+                <td>
+                    <a href="{{ path("admin_category_edit", {'id': category.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i></a>
+                    <a href="{{ path("admin_category_delete", {'id': category.id}) }}" class="btn btn-danger mt-1">
+                    <i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+     <a href="{{ path('admin_category_create') }}" class="btn btn-primary">Create une nouvelle catégorie</a>
+
+    {{ pagination.display() }}
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des clients{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+       <a href="{{ path('admin_user_index') }}" class="btn btn-link">
+                    <i class="fas fa-arrow-circle-left"></i>
+                    Retour
+                </a> <h1 class="my-5 text-center">Administration des clients</h1>
+
+        <table class="table table-hover" id="top-section">
+            <thead>
+                <thead>
+                <th>ID</th>
+                <th>Nom Complet</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Réservations</th>
+                <th>Actions</th>
+            </thead>
+            </thead>
+            <tbody>
+                {# On boucle sur les clients #}
+                {% for user in pagination.data %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td><img src="{{user.picture}}" alt="" class="avatar avatar-micro"> {{user.fullName}}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {# On boucle sur les rôles #}
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                Client
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td class="mr-3"> 
+                        
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                <span class="badge badge-dark">{{ user.bookings|length }}</span> 
+                                Réservations
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td class="row m-auto">
+                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-primary waves-effect waves-ligh">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a href="{{ path('admin_user_delete', {'id': user.id}) }}" class="btn btn-danger ml-1 waves-effect waves-ligh">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>    
+                </tr>
+                
+                {% else %}
+                    <p>Aucun utilisateur inscrit</p>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px;">
+            <a href="#top-section" class=" btn-floating btn-lg  red waves-effect waves-ligh">
+                <i class="fas fa-arrow-up"></i>
+            </a>
+        </div>
+
+        {{ pagination.display() }}
+    </div>
+{% endblock %}

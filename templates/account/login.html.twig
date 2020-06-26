@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion au site{% endblock %}
+{% block stylesheets %}
+    <style>
+    {# linear-gradient(to bottom, rgba(255,255,0,0.5), rgba(0,0,255,0.5)), #}
+        body {
+            justify-content: center;
+            height: 100vh;
+            color: white;
+            margin:0;
+            padding:0;  
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            min-height:100vh;
+        }
+        .card {
+  background-color: rgba(126, 123, 215, 0.2);
+}
+
+.md-form label  {
+  color: #ffffff;
+}
+
+
+h6 {
+  line-height: 1.7;
+}
+        
+        .contenu {
+        flex:1 0 auto;
+    }
+       
+        
+    </style>
+{% endblock %}
+
+{% block body  %}
+   
+<div  class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="container contenu " >
+            <!--<div class="col-md-4">&nbsp;</div>&nbsp;&nbsp;&nbsp; -->
+        <div class="row mb-1 "  >
+            <div class="col-md-4 m-auto text-center" align="center">
+                <div class="card card-image" >
+                    <h5 class="card-header info-color white-text text-center py-4 ">
+                        <strong>Connectez vous !</strong>
+                    </h5>
+                    {% if hasError %}
+                        <div class="alert alert-danger">Une erreur est survenue, le nom d'utilisateur ou alors le mot de passe est invalide</div>
+                    {% endif %}
+                    <div class="card-body px-lg-5 pt-0">
+                        <form action="{{ path('account_login') }}" class="text-center" style="color: #757575;" method="post">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fas fa-envelope  input-prefix"></i>
+                                <input type="email" id="materialLoginFormEmail" name="_username" class="form-control" required value="{{username}}">
+                                <label for="materialLoginFormEmail">Email</label>
+                            </div>
+                                    <!-- Password -->
+                            <div class="md-form mt-4 " style="max-width:20rem;margin:2rem auto;">
+                                <input type="password" id="password" name="_password" class="form-control" required>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember" name="_remember_me">
+                                <label  class="custom-control-label white-text" for="defaultLoginFormRemember" >Se souvenir de moi </label>
+                            </div>
+                            <input type="hidden" name="_csrf_token"
+                                value="{{ csrf_token('authenticate') }}"
+                            >
+                            <div class="md-form">
+                                <button type="submit" class="btn btn-primary"> <i class="fas fa-lock-open"></i>
+                                    Connexion !
+                                </button>
+                                <p> <a href="{{ path('account_register') }}" class="btn btn-link">Je n'ai pas encore de compte !</a></p>
+                                <p class=" white-text">Mot de passe oublié ? <a href="{{path('forgotten_password')}}">Récuperer</a></p>
+                            </div>
+                        </form>
+                    </div>         
+                </div>
+            </div>
+        </div>
+    </div>
+</
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script src="{{ asset('build/js/password.js') }}"></script>
+
+{% endblock %}
+

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du profil utilisateur{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        justify-content: center;
+        height: 100vh;
+        background-image:
+        url('{{ asset('build/images/nature1.jpg') }}');
+        margin:0;
+        padding:0;  
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        min-height:100vh;
+    }
+
+    .contenu {
+        flex:1 0 auto;
+    }
+    
+    
+</style>
+
+<div class="container contenu">
+    <div class="row mb-3">
+        <div class="col-md-9 m-auto" align="center">
+            <div class="card">
+                <h5 class="card-header info-color white-text text-center py-4 mb-3">
+                    <strong>Modification de profil !</strong>
+                </h5>
+                
+                <div class="card-body px-lg-5 pt-0 mt-3">
+                                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="md-form mt-0 input-with-post-icon">
+                                <i class="fas fa-user input-prefix"></i>
+                                {{ form_row(form.firstName) }} 
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="md-form mt-0 input-with-post-icon">
+                                <i class="fas fa-user input-prefix"></i>
+                                {{ form_row(form.lastName) }} 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">   
+                            <div class="md-form mt-0 input-with-post-icon">
+                                <i class="fas fa-envelope  input-prefix"></i>
+                                {{ form_row(form.email) }} 
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="md-form mt-0 input-with-post-icon">
+                                <i class="fas fa-image input-prefix"></i>
+                                {{ form_row(form.picture) }} 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p>Si vous avez terminé vos modifications, vous pouvez les sauvegarder</p>
+                        <button type="submit" class="btn btn-success">
+                                <i class="fas fa-check"></i>
+                                Enregistrer les modifications
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{ form_row(form._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

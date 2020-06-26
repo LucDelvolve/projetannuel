@@ -1,0 +1,78 @@
+{% extends 'presta/base.html.twig' %}
+
+
+{% block title %}Modification du profil utilisateur{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        justify-content: center;
+        height: 100vh;
+        background-image:
+        url('{{ asset('build/images/nature1.jpg') }}');
+    }
+
+    .card {
+        margin-top: 10%;
+    }
+</style>
+
+    <div class="container">
+        <h1 class="my-5">Modification du profil</h1>
+
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light ">
+                    <h2 class="alert-heading">Informations générales</h2>
+                    <hr>
+                    <div class="md-form mt-2">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                    <div class="md-form ">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                    <div class="md-form ">
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="md-form ">
+                        {{ form_row(form.picture) }}
+                    </div>
+                </div>
+                
+               
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2 class="alert-heading">Détails</h2>
+                    <hr>
+                    <div class="md-form ">
+                        {{ form_row(form.introduction) }}
+                    </div>
+                        <div class="md-form amber-textarea active-amber-textarea">
+                            <i class="fas fa-angle-double-right prefix"></i>
+                            {{ form_label(form.description) }}
+                            {{ form_widget(form.description, {'attr':{'class': 'md-textarea form-control'}}, {'id': 'form22'}) }}</div>
+                        
+                    
+                    <hr>
+                    <p>Si vous avez terminé vos modifications, vous pouvez les sauvegarder</p>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i>
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+        
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('build/js/password.js') }}"></script>
+
+{% endblock %}
+

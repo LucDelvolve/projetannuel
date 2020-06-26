@@ -1,0 +1,10 @@
+{% apply inky_to_html %}
+    <container>
+        <row class="header">
+            <columns>
+                <spacer size="12"></spacer>
+                <a href="{{ url('reset_password',{token: user.resetToken}) }}"><h1 class="text-center">Cliquez sur ce lien pour redéfinir un nouveau mot de passe </h1></a>
+            </columns>
+        </row>
+    </container>
+{% endapply %}

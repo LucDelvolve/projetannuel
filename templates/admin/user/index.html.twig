@@ -1,0 +1,18 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="my-5 text-center">Administration des utilisateurs</h1>
+
+        <div class="col-9">
+            <div class="m-auto align-content-end" align="center">
+                <a href="{{ path('admin_user_client') }}" class="btn btn-primary mb-2">Liste des clients</a>
+                <a href="{{ path('admin_user_presta') }}" class="btn btn-primary mr-2 mb-2">Liste des prestataires</a>
+                <a href="{{ path('admin_user_admin') }}" class="btn btn-primary mb-2">Liste des administrateurs</a>
+                <a href="{{ path('admin_user_index1') }}" class="btn btn-primary mb-2">Liste</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

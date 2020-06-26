@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La catégorie {{category.title}} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-5 text-center">La catégorie {{category.title}}</h1>
+
+        <div class="my-5 text-center"> {{ category.description | raw }} </div>
+
+        <hr>
+
+        <h2 class="my-5 text-center"> Les différentes prestations liées à la catégorie {{ category.title }}</h2>
+
+        {% if category.ads | length  > 0 %}
+            <div class="row">
+                {% for ad in category.ads %}
+                    {% include 'ad/_ad.html.twig' %}   
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                <p>
+                    <strong>La catégorie {{ category.title }}</strong> n'a pas encore de prestation liée sur le site !
+                </p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

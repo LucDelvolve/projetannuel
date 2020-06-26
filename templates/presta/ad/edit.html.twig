@@ -1,0 +1,31 @@
+{% extends "presta/base.html.twig" %}  
+
+{% block title %}
+    Edition d'une prestation
+{% endblock %}
+
+{% form_theme form 'presta/ad/_collection.html.twig' %}
+
+{% block body %}
+    
+    <div class="container">
+        <h1> Modifier la prestation </h1>
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <input type="hidden" id="widgets-counter" value="0">
+
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('build/js/ad.js') }}"></script>
+
+{% endblock %}

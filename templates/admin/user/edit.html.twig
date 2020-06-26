@@ -1,0 +1,145 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modification de l'utilisateur {{user.id}}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 class="my-5">Modification de l'utilisateur {{user.fullName}}</h1>
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div>
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h4 class="card-title  text-center">Modifier l'utilisateur</h4>
+                </div>
+                <div class="card-body">
+                    {{ form(form) }}
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Les réservations</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center strong">Id</th>
+                                <th class="text-center strong">Utilisateur</th>
+                                <th class="text-center strong">Prestation liée</th>
+                                <th class="text-center strong">Date de réservation</th>
+                                <th class="text-center strong"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in user.bookings %}
+                            <tr>
+                                <td>{{booking.id}}</td>
+                                <td>{{booking.booker.fullName}}</td>
+                                <td>{{booking.ad.title}}</td>
+                                <td>{{booking.createdAt | date('d/m/Y H:i')}}</td>
+                                <td>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card bg-light mt-5">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Les commentaires</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Utilisateur</th>
+                                <th>Note</th>
+                                <th>Prestation</th>
+                                <th>Commentaire</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for comment in user.comments %}
+                            <tr>
+                                <td>{{comment.id}}</td>
+                                <td>{{comment.author.fullName}}</td>
+                                <td>{{comment.rating}}</td>
+                                <td>{{comment.ad.title}}</td>
+                                <td>{{comment.content}}</td>
+                                <td>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card bg-light mt-5">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Les prestations réserver</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Prestation</th>
+                                <th>Booker</th>
+                                <th>Statut de la resérvation</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ad in user.ads %}
+                                {% for booking in ad.bookings %}
+                                <tr>
+                                    <td>N°{{booking.id}}</td>
+                                    <td>{{ad.title}}</td>
+                                    <td>{{booking.booker.fullName}}</td>
+                                    <td>{{booking.status}}</td>
+                                    <td>{{booking.amount | number_format(2, ',', ' ')}} &euro;</td>
+                                    <td>Du {{booking.startDate|date('d/m/Y')}} au {{booking.endDate|date('d/m/Y')}}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
+

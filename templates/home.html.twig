@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Bienvenue sur MonMariage
+{% endblock %}
+
+{% block body %}
+<style>
+        .cardjumbo {
+            justify-content: center;
+            height: 100vh;
+            background-image:
+            url('{{ asset('build/images/amour1.jpg') }}');
+            background-repeat: no-repeat; background-size: cover; background-position: center; 
+        }
+
+        .card {
+            margin-top: 10%;
+        }
+    </style>
+
+
+<div class="container">
+    <div class="jumbotron mt-3 cardjumbo">
+        <h1 class="display-4">Bienvenue sur MonMariage!</h1>
+        <p class="lead">Tout pour organiser votre mariage !</p>
+        <hr class="my-4">
+        <p>Vous êtes des futurs mariés ? Et vous voulez avoir les meilleurs prestataires pour ?</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{{ path('ads_index') }}" role="button">Voir nos prestations</a>
+        </p>
+    </div>
+
+    <h2 class="h1 my-5 text-center">Nos prestations stars</h2>
+
+    <div class="row">
+        {% for data in ads %}
+            {% include 'ad/_ad.html.twig' with {'ad': data.annonce} %}
+        {% endfor %}
+    </div>
+
+    <h2 class="h1 my-5 text-center">Nos prestataires stars !</h2>
+    
+    <div class="row">
+        {% for data in users %}
+        <div class="col">
+            <div class="card border-secondary mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">{{data.user.fullName}}</h4>
+
+                    <hr>
+
+                    <div class="card-text">
+                        <img src="{{data.user.picture}}" alt="Avatar de {{data.user.fullName}}" class="float-left mr-3">
+                        <p>{{data.user.introduction|slice(0, 100) ~ '...'}}</p>
+                        <a href="{{ path('presta_show', {'slug': data.user.slug})}}" class="btn btn-success float-right">En savoir plus!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

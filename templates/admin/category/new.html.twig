@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Création d'une catégorie
+{% endblock %}
+
+{% block body %}
+    
+    <div class="container" class="col-md-4">
+        <h1 class="my-5">Créer une nouvelle catégorie</h1>
+
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Informations de la catégorie</h2>
+                    <hr>
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="alert alert-success clearfix">
+                    <button type="submit" class="btn btn-primary float-right">
+                        <i class="fas fa-check"></i>
+                        Créer la nouvelle catégorie
+                    </button>
+                </div>
+            </div>
+         </div>
+
+        
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+

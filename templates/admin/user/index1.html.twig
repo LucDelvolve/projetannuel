@@ -1,0 +1,91 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="my-5 text-center" id="top-section">Administration des utilisateurs</h1>
+
+        <table class="table table-hover">
+            <thead >
+                <th>ID</th>
+                <th>Nom Complet</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Activité </th>
+                <th>Introduction</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {# On boucle sur les utilisateurs #}
+                {% for user in pagination.data %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td><img src="{{user.picture}}" alt="" class="avatar avatar-micro"> {{user.fullName}}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {# On boucle sur les rôles #}
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                Client
+                            {% elseif role == "ROLE_PRESTA" %}
+                                Prestataire
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Administrateur
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td class="mr-3"> 
+                        
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                <span class="badge badge-dark">{{ user.bookings|length }}</span> 
+                                Réservations
+                            {% elseif role == "ROLE_PRESTA" %}
+                                <span class="badge badge-dark">{{ user.ads|length }}</span>
+                                Prestations
+                            {% elseif role == "ROLE_ADMIN" %}
+                                <span class="badge badge-dark"> " " </span>
+                                Catégories
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_PRESTA" %}
+                                {{ user.introduction|raw}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                         {% for role in user.roles %}
+                            {% if role == "ROLE_PRESTA" %}
+                                {{ user.description|raw }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    
+                    <td class="row m-auto">
+                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-primary waves-effect waves-ligh">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a href="{{ path('admin_user_delete', {'id': user.id}) }}" class="btn btn-danger mt-1 waves-effect waves-ligh">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>    
+                </tr>
+                
+                {% else %}
+                    <p>Aucun utilisateur inscrit</p>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px;">
+            <a href="#top-section" class=" btn-floating-right btn-lg  red waves-effect waves-ligh">
+                <i class="fas fa-arrow-up"></i>
+            </a>
+        </div>
+        {{ pagination.display() }}
+    </div>
+{% endblock %}
